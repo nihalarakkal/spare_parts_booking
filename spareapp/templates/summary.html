@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>summary page</h1>
+{% for i in cartitems %}
+spare pic:<img src="{{i.item.sparepic.url}}">
+spare name:{{i.item.sparename}}<br>
+spare price :{{i.item.spareprice}}<br>
+spare company :{{i.item.sparecompany}}<br>
+spare description:{{i.item.sparedesc}}<br>
+spare company:{{i.item.sparecategory}}<br>
+spare model:{{i.item.sparemodel}}<br><br>
+{% endfor %}
+
+total: {{total}}<br>
+address line 1:{{addressnew.addressline1}}<br>
+address line 2:{{addressnew.addressline2}}<br>
+pincode:{{addressnew.pincode}}<br>
+city:{{addressnew.city}}<br>
+state:{{addressnew.state}}<br>
+contact name:{{addressnew.contact_name}}<br>
+contact number:{{addressnew.contact_number}}
+
+<form action="{% url 'create_order' %}" method="post">{% csrf_token %}
+    <input type="hidden" name="address_id" value="{{addressnew.id}}">
+    <label>online payment</label>
+
+    <script
+    src="https://checkout.stripe.com/checkout.js"
+    class="stripe-button"
+    data-key="{{ key }}"
+    data-amount="{{ striptotal }}"
+    data-name="Online payment"
+    data-description="Online payment"
+    data-locale="auto"
+    data-currency="inr">
+</script>
+</form>
+</body>
+</html>

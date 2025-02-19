@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f7fa;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    .summary-section {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+    }
+
+    .summary-image {
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .summary-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .summary-details h2 {
+      font-size: 20px;
+      color: #2c3e50;
+    }
+
+    .summary-details p {
+      font-size: 16px;
+      color: #34495e;
+    }
+
+    .price {
+      font-size: 22px;
+      color: #2ecc71;
+      font-weight: bold;
+    }
+
+    .total-section {
+      text-align: right;
+      font-size: 22px;
+      font-weight: bold;
+      color: #2ecc71;
+    }
+
+    .pay-button {
+      background-color: #3498db;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .pay-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Order Summary</h1>
+    </div>
+{% for i in cartitems %}
+    <div class="summary-section">
+      <div class="summary-grid">
+        <img src="{{i.item.sparepic.url}}" alt="Spare Part" class="summary-image">
+        <div class="summary-details">
+          <h2>{{i.item.sparename}}</h2>
+          <p><strong>Company:</strong>{{i.item.sparecompany}}</p>
+          <p><strong>Model:</strong> {{i.item.sparemodel}}</p>
+          <p><strong>Description:</strong> {{i.item.sparedesc}}</p>
+          <p class="price">Price: ₹:{{i.item.spareprice}}<br></p>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+
+    <div class="summary-section">
+      <h2>Shipping Details</h2>
+      <p><strong>Address:</strong> {addressnew.addressline1}}, {{addressnew.addressline2}}</p>
+      <p><strong>City:</strong> {{addressnew.city}}, <strong>State:</strong> {{addressnew.state}}</p>
+      <p><strong>Pincode:</strong> {{addressnew.pincode}}</p>
+      <p><strong>Contact Name:</strong> {{addressnew.contact_name}}</p>
+        <p><strong>Contact Number:</strong> {{addressnew.contact_number}}</p>
+    </div>
+
+    <div class="summary-section total-section">
+      Total Amount: ₹{{total}}
+    </div>
+
+      <form action="{% url 'create_order' %}" method="post">{% csrf_token %}
+    <input type="hidden" name="address_id" value="{{addressnew.id}}">
+    <label>pay with Card</label>
+
+    <script
+    src="https://checkout.stripe.com/checkout.js"
+    class="stripe-button"
+    data-key="{{ key }}"
+    data-amount="{{ striptotal }}"
+    data-name="Online payment"
+    data-description="Online payment"
+    data-locale="auto"
+    data-currency="inr">
+</script>
+</form>
+
+
+  </div>
+</body>
+</html>

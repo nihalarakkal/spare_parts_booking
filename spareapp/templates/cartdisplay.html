@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for i in db %}
+{{i.item.sparename}}<br>
+<img src="{{i.item.sparepic.url}}"><br>
+spare price:{{i.item.spareprice}}<br>
+company name:{{i.item.sparecompany}}<br>
+descritpion:{{i.item.sparedesc}}<br>
+category:{{i.item.sparecategory}}<br>
+model:{{i.item.sparemodel}}<br>
+<a href="{% url 'incdec' i.id %}?action=decrement"><button>-</button></a>
+{{i.quantity}}
+<a href="{% url 'incdec' i.id %}?action=increment"><button>+</button></a><br>
+<a href="{% url 'remove' i.id %}">remove</a>
+<a href="">Buy product</a>
+{% endfor %}
+<h1>total amount:{{total}}</h1>
+<h1>total product:{{count}}</h1>
+<a href="{% url 'delivery_details' %}" class="btn-cart">continue</a>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+{% for i in messages %}
+{% if i.tags == 'warning' %}
+<script>
+    swal('{{i}}', '','warning')
+</script>
+{% elif i.tags == 'error' %}
+<script>
+    swal('{{i}}', '','error')
+</script>
+{% elif i.tags == 'info' %}
+<script>
+    swal('{{i}}', '','info')
+</script>
+{% else %}
+<script>
+    swal('{{i}}', '','success')
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+</body>
+</html>

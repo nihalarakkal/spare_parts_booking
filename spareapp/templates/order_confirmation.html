@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>Thank you for your order</p>
+{% for i in order_items %}
+<p>Product Name:{{i.product}}</p>
+<p>price:{{i.price}}</p>
+<p>Quantity:{{i.quantity}}</p>
+
+
+
+{% endfor %}
+<p>total amount:{{total}}</p>
+<p>expected delivery data:{{expected_delivery_date}}</p>
+
+</body>
+</html>
