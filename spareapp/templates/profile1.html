@@ -210,8 +210,11 @@
             <a href="#">Home</a>
             <a href="#">Bike Parts</a>
             <a href="{% url 'addtocartview' i.id %}">Cart</a>
-            <a href="#">Profile</a>
-            <a href="">Logout</a>
+            <a href="{% url 'order_view' i.id %}">My Orders</a>
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a href="" class="btn btn-login">Login</a>
+           {% endif %}
         </div>
     </nav>
 
@@ -222,7 +225,7 @@
                 <div class="profile-info">
                     <h2>{{data.Fullname}}</h2>
                     <ul class="profile-menu">
-                        <li><a href="{% url 'usersingleview' data.id %}">My Profile</a></li>
+                        <li><a href="{% url 'userupdate' data.id %}">My Profile</a></li>
                         <li><a href="#">All Products</a></li>
                         <!-- <li><a href="#">Bike Parts</a></li>
                         <li><a href="">Cart</a></li>

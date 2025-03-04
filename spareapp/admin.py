@@ -9,3 +9,5 @@ admin.site.register(wishlist)
 admin.site.register(address)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+
+

@@ -284,7 +284,7 @@
     <div class="container">
         <div class="cart-header">
             <h1 class="cart-title">Spare Parts Cart</h1>
-            <span>3 Items</span>
+           
         </div>
         {% for i in db %}
 
@@ -369,7 +369,7 @@
         <div class="col-md-8">
         </div>
         <div class="col-md-4 text-end">
-            <a href="http://127.0.0.1:8000/delivery_details/" class="btn btn-success"> Continue</a>
+            <a href="{% url 'delivery_details' %}" class="btn btn-success"> Continue</a>
         </div>
     </div>
 </div>

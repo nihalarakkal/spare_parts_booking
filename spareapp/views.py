@@ -48,12 +48,25 @@ def loginview(request):
         else:
             messages.error(request,"Login Failed")
     return render(request,'user_login.html')
+def logoutview(request):
+    try:
+        # Check if user is logged in
+        if 'userid' in request.session:
+            # Clear specific session data
+            del request.session['userid']
+            # Flush all session data
+            request.session.flush()
+            messages.success(request, "Logged out successfully")
+        else:
+            messages.info(request, "You are not logged in")
+            
+    except Exception as e:
+        messages.error(request, "An error occurred during logout")
+        print(f"Logout error: {str(e)}")
+    
+    # Redirect to login page
+    return redirect('index')
 
-# def admin_logout(request):
-#     del request.session['userid']
-#     del request.session['password']
-#     messages.success(request,"Logout Successfully")
-#     return redirect(loginview)
 
 def profile(request):
     id1 = request.session['userid']
@@ -251,7 +264,7 @@ def create_order(request): #after payment
         html_message=render_to_string('order_confirmation.html',context)
         plain_message=strip_tags(html_message)
 
-        from_email='akmohith2000@gmail.com'
+        from_email='nihalarakkal578@gmail.com'
 
         to_email=[user.Email]
 
@@ -276,7 +289,7 @@ def order_cancel(request,id):
     context={'product_name':db.pro_name,'price':db.price}
     html_message=render_to_string('order_cancel.html',context)
     plain_message=strip_tags(html_message)
-    from_email='akmohith2000@gmail.com'
+    from_email='nihalarakkal578@gmail.com'
     to_email=[user.Email]
     send_mail(subject,plain_message,from_email,to_email,html_message=html_message)
     return HttpResponse('order cancelled')

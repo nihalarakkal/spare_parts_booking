@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -117,7 +118,7 @@
 
     <div class="summary-section">
       <h2>Shipping Details</h2>
-      <p><strong>Address:</strong> {addressnew.addressline1}}, {{addressnew.addressline2}}</p>
+      <p><strong>Address:</strong> {{addressnew.addressline1}}, {{addressnew.addressline2}}</p>
       <p><strong>City:</strong> {{addressnew.city}}, <strong>State:</strong> {{addressnew.state}}</p>
       <p><strong>Pincode:</strong> {{addressnew.pincode}}</p>
       <p><strong>Contact Name:</strong> {{addressnew.contact_name}}</p>
@@ -131,7 +132,7 @@
       <form action="{% url 'create_order' %}" method="post">{% csrf_token %}
     <input type="hidden" name="address_id" value="{{addressnew.id}}">
     <label>pay with Card</label>
-
+  
     <script
     src="https://checkout.stripe.com/checkout.js"
     class="stripe-button"
@@ -141,10 +142,15 @@
     data-description="Online payment"
     data-locale="auto"
     data-currency="inr">
+
 </script>
+<div class="action-buttons d-flex justify-content-center mt-2">
+  <a href="{% url 'profile' %}" class="btn btn-success">Back</a>
+</div>
 </form>
 
 
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

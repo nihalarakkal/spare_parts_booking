@@ -1,17 +1,18 @@
 from django.urls import path
 
 from . import views
+
 from .views import (
     index, registration, loginview, profile, userupdate, usersingleview, spareupload,
     addtocartview, cartdisplay, incdec, remove, wishlistview, wishlistallview, wishremove,
-    addaddress, delivery_details, final_summary, create_order, order_view, order_cancel
+    addaddress, delivery_details, final_summary, create_order, order_view, order_cancel,
 )
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('registration/', registration, name='registration'),
     path('loginview/', loginview, name='loginview'),
-    # path('logout/',views.admin_logout,name="logout"),
+    path('logout/', views.logoutview, name='logout'),
     path('profile/', profile, name='profile'),
     path('usersingleview/<int:id>/', usersingleview, name='usersingleview'),
     path('userupdate/<int:id>/', userupdate, name='userupdate'),
@@ -29,6 +30,8 @@ urlpatterns = [
     path('create_order/', create_order, name='create_order'),
     path('order_view/', order_view, name='order_view'),
     path('order_cancel/<int:id>/', order_cancel, name='order_cancel'),
-    path('contact_page/',views.contact_page,name='contact_page')
+    path('contact_page/',views.contact_page,name='contact_page'),
+   
+    
 
 ]

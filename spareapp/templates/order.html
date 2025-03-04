@@ -2,21 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* General Page Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Order Card Styling */
+        .order-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+       
+        .order-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 15px;
+            width: 300px;
+            text-align: left;
+            transition: 0.3s ease-in-out;
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Product Image */
+        .order-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        /* Product Name */
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Order Details */
+        .order-details {
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Order Status Styling */
+        .order-status {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .ordered {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .cancelled {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Cancel Button */
+        .cancel-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .cancel-btn:hover {
+            background: #c82333;
+        }
+    </style>
 </head>
 <body>
-<h1>Your orders</h1>
-{% for i in order %}
-<img src="{{i.order_pic.url}}"><br>
-<h1>product name:{{i.pro_name}}</h1><br>
-<p>product price:{{i.price}}</p><br>
-<p>ordered date:{{i.order.ordered_date}}</p><br>
-{% if i.order_status %}
-<a href="{% url 'order_cancel' i.id %}" class="btn btn-primary ">cancel order</a><br>
-<p>Order status : <span class="ordered"><i class="fas fa-check-circle icon">Ordered</i></span></p>
-{% else %}
-<p>Order status : <span class="cancelled"><i class="fas fa-times-circle icon">cancelled</i></span></p>
-{% endif%}
-{% endfor %}
+  
+
+    <h1>Your Orders</h1>
+
+    <div class="order-container">
+        {% for i in order %}
+        <div class="order-card">
+            <img src="{{ i.order_pic.url }}" alt="Product Image">
+            <p class="product-name">{{ i.pro_name }}</p>
+            <p class="order-details">Price: ${{ i.price }}</p>
+            <p class="order-details">Ordered Date:{{ i.ordered_date }}</p>
+            {% if i.order_status %}
+                <a href="{% url 'order_cancel' i.id %}" class="cancel-btn">Cancel Order</a>
+                <p class="order-status ordered"><i class="fas fa-check-circle"></i> Ordered</p>
+            {% else %}
+                <p class="order-status cancelled"><i class="fas fa-times-circle"></i> Cancelled</p>
+            {% endif %}
+        </div>
+        {% empty %}
+            <p>No orders found.</p>
+        {% endfor %}
+    </div>
+
 </body>
 </html>
